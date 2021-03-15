@@ -19,27 +19,35 @@ You'll need to note the location. ;-)
 
 ### Install the LEM tool
 There are a couple ways to accomplish this.  First is to clone via git.  The second is to insall bia Pypi.  We recommend that latter as **lem** has some dependencies that will automatically be installed via **pip**.  Furthermore, we recommend the use of Python Virtualenv.  This will ensure that **lem** is installed in an isolated Python environment.
-
-#### Clone the Repository
+#### PIP
+If you use `pip`, you can install `lem` with:
+```terminal
+pip install lem
+```
+#### Build
+Clone `lem` and initialize the exploit curation submodule.
 ```terminal
 git clone https://github.com/redteam-project/lem
+git submodule update --init 
 ```
-#### Pypi
+#### Simple Python Version Management: pyenv
+Once you have `pyenv` install, make sure to install and configure they version of python you wish to use.
 ```terminal
-pip install lem
+pyenv install 3.10-dev
+pyenv local 3.10-dev
 ```
-#### Virtualenv
+You can create a virtual environment (`virtualenv`) and source activate it.
 ```terminal
-sudo easy_install virtualenv
-virtualenv lem
-cd lem
-source bin/activate
-pip install lem
+pyenv exec python -m venv .venv
+source .venv/bin/activate
 ```
-**NOTE** This is a known issue in Python 2.6 where the version of **wheel** causes some conflicts.  This can be resolved with:
+Now we have a clean environment to build, install, and  use `lem` in.
 ```terminal
-pip install wheel==0.29.0
+pip install --upgrade wheel pip
+python setup.py bdist_wheel
+pip install dist/*.whl
 ```
+
 ## General Usage
 Executing **lem** with the ***--help*** argument will provide some basic guidance.
 ```terminal
@@ -103,3 +111,5 @@ In testing an exploit, it may be useful to test the exploit against a host that 
 ```terminal
 (lem) [root@localhost lem]# lem host patch exploits --curation /mnt/hgfs/exploit-curation/ --source exploit-database --ids 37706
 ```
+### Python 3 Porting Notes
+Some dependencies may no longer be maintained. Currently, the [readteamcore](https://github.com/comrumino/redteamcore) requirement causes tests to fail for Python `3.10-dev`.
