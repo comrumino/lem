@@ -1,7 +1,9 @@
 import subprocess
 import logging
+
+
 class Patcher(object):
-    #def __init__(self, cves):
+    # def __init__(self, cves):
     #    self.
     @classmethod
     def patch(cls, cves=None):
@@ -18,7 +20,7 @@ class Patcher(object):
                              stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE)
         out, err = p.communicate()
-        #if err:
+        # if err:
         #    logger.error("\n".join(err.split('\n')))
         if p.returncode != 0:
             raise OSError(p.returncode, err)

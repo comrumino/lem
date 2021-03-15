@@ -2,6 +2,7 @@ import unittest
 from lem.score import ScoreManager
 from lem.score import InvalidExample
 
+
 class TestScoreManager(unittest.TestCase):
     def setUp(self):
         self.stride_pattern = r'^(\d)(\d)(\d)(\d)(\d)(\d)$'
@@ -13,11 +14,11 @@ class TestScoreManager(unittest.TestCase):
         self.manager.add_score('stride', self.stride_pattern)
         self.assertEqual(len(self.manager.scores), 1)
         self.assertIn('stride', self.manager.scores.keys())
-        #Add again, ensure it doesn't grow and the patter doesn't change
+        # Add again, ensure it doesn't grow and the patter doesn't change
         self.manager.add_score('stride', r'\d\d\d\d\d\d\d')
         self.assertEqual(len(self.manager.scores), 1)
         self.assertEqual(self.stride_pattern, self.manager.get_pattern('stride'))
-        #Add new score
+        # Add new score
         self.manager.add_score('skipped', self.skipped_pattern)
         self.assertEqual(len(self.manager.scores), 2)
         self.assertIn('stride', self.manager.scores.keys())
@@ -36,4 +37,5 @@ class TestScoreManager(unittest.TestCase):
     def test_bad_example(self):
         with self.assertRaises(InvalidExample) as error:
             self.manager.add_score('badstride', self.stride_pattern, '1234568')
-        self.assertEqual(str(error.exception), "For score badstride, example 1234568 does not match pattern ^(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)$.")
+        self.assertEqual(str(error.exception),
+                         "For score badstride, example 1234568 does not match pattern ^(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)$.")

@@ -12,6 +12,7 @@ RE_CVE = re.compile(r'CVE-\d{4}-\d{4,}')
 class Assessor(object):
     def __init__(self):
         self.cves = []
+
     @abc.abstractmethod
     def assess(self):
         pass
@@ -24,7 +25,7 @@ class YumAssessor(Assessor):
     def assess(self):
         lines = []
         error_lines = []
-        
+
         command = ["yum", "updateinfo", "list", "cves"]
         p = subprocess.Popen(command,
                              stdout=subprocess.PIPE,
@@ -54,7 +55,7 @@ class RpmAssessor(Assessor):
     def _get_rpms(self):
         lines = []
         error_lines = []
-        
+
         command = ["rpm", "-qa"]
         p = subprocess.Popen(command,
                              stdout=subprocess.PIPE,
@@ -76,7 +77,7 @@ class RpmAssessor(Assessor):
             for rpm in definition['affected_packages']:
                 if rpm.name() in self.installed_packages.keys():
                     if self.installed_packages[rpm.name()].version_less_than(rpm):
-                        self.cves.append(cve)      
+                        self.cves.append(cve)
 
         self.cves = list(set(self.cves))
 
@@ -159,9 +160,9 @@ class Rpm(object):
         if not isinstance(other_rpm, Rpm):
             return False
         if self.name() == other_rpm.name():
-        # and \
-        #     self.target_hw() == other_rpm.target_hw() and \
-        #     self.target_sw() == other_rpm.target_sw():
+            # and \
+            #     self.target_hw() == other_rpm.target_hw() and \
+            #     self.target_sw() == other_rpm.target_sw():
             if self.major() < other_rpm.major():
                 return True
             elif self.major() == other_rpm.major() and self.minor() < other_rpm.minor():
@@ -176,8 +177,8 @@ class Rpm(object):
         if not isinstance(other_rpm, Rpm):
             return False
         if self.name() == other_rpm.name() and \
-            self.target_hw() == other_rpm.target_hw() and \
-            self.target_sw() == other_rpm.target_sw():
+                self.target_hw() == other_rpm.target_hw() and \
+                self.target_sw() == other_rpm.target_sw():
             if self.major() > other_rpm.major():
                 return True
             elif self.major() == other_rpm.major() and self.minor() > other_rpm.minor():
@@ -190,7 +191,7 @@ class Rpm(object):
 
     # def __eq__(self, other_rpm):
     #     pass
-    
+
     # def __ne__(self, other_rpm):
     #     pass
 
@@ -202,7 +203,7 @@ class Rpm(object):
 
     # def __le__(self, other_rpm):
     #     pass
-    
+
     # def __ge__(self, other_rpm):
     #     pass
 

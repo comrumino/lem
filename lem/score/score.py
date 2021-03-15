@@ -1,9 +1,11 @@
 import re
 
+
 class InvalidExample(Exception):
     def __init__(self, name, pattern, example):
         message = "For score {0}, example {1} does not match pattern {2}.".format(name, example, pattern)
         super(InvalidExample, self).__init__(message)
+
 
 class Score(object):
     def __init__(self, name, pattern, example=None):

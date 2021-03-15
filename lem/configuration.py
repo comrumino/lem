@@ -3,6 +3,7 @@ import sys
 import shutil
 import ConfigParser
 
+
 class LemConfiguration(object):
 
     LEM_CONF_ENV = 'LEMCONFPATH'
@@ -26,7 +27,7 @@ class LemConfiguration(object):
         if not os.path.isfile(self.file):
             print "{0} doesn't exist".format(self.file)
             shutil.copy(source_config, self.file)
-        #End workaround for funky
+        # End workaround for funky
 
     def read_config(self):
         config = ConfigParser.ConfigParser()

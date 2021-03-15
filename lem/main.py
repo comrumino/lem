@@ -12,6 +12,7 @@ from lem.exploit import CurationManager
 
 from . import LemConfiguration
 
+
 class Lem(object):
     def __init__(self, args):
         self.args = args
@@ -75,9 +76,10 @@ class Lem(object):
         except OSError as oserror:
             if oserror.errno == 2:
                 FRTLogger.error("\nUnable to execute %s.  The patch or assess subcommands may only "
-                                          "be run on an enterprise Linux host.", self.args.sub_which)
+                                "be run on an enterprise Linux host.", self.args.sub_which)
             elif oserror.errno == 1:
-                FRTLogger.error("\nUnable to execute %s.  Please ensure you have the permissions to do so.", self.args.sub_which)
+                FRTLogger.error(
+                    "\nUnable to execute %s.  Please ensure you have the permissions to do so.", self.args.sub_which)
             else:
                 raise OSError(oserror.args)
 
@@ -112,7 +114,6 @@ class Lem(object):
         elif self.args.sub_sub_which == 'all':
             Patcher.patch()
 
-
     def process_score(self):
         self.configure_score_managers()
         if 'list' in self.args.sub_which:
@@ -136,10 +137,12 @@ class Lem(object):
         elif 'score' in self.args.sub_which:
             self.configure_score_managers()
             if not self.args.kind in self.score_manager.scores.keys():
-                FRTLogger.error("Score kind {0} is not valid.  Please check {1}".format(self.args.kind, self.lem_conf.path))
+                FRTLogger.error("Score kind {0} is not valid.  Please check {1}".format(
+                    self.args.kind, self.lem_conf.path))
                 sys.exit(1)
             if not self.score_manager.is_valid(self.args.kind, self.args.value):
-                FRTLogger.error("Score value {0} is not valid.  Please check {1}".format(self.args.value, self.lem_conf.path))
+                FRTLogger.error("Score value {0} is not valid.  Please check {1}".format(
+                    self.args.value, self.lem_conf.path))
                 sys.exit(1)
 
             curation_manager.score(eid=self.args.id,

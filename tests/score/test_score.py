@@ -2,6 +2,7 @@ import unittest
 from lem.score import Score
 from lem.score import InvalidExample
 
+
 class TestStrideScore(unittest.TestCase):
     def setUp(self):
         self.pattern = r'^(\d)(\d)(\d)(\d)(\d)(\d)$'
@@ -23,7 +24,9 @@ class TestStrideScore(unittest.TestCase):
     def test_example(self):
         with self.assertRaises(InvalidExample) as error:
             stride = Score('stride', self.pattern, '1234568')
-        self.assertEqual(str(error.exception), "For score stride, example 1234568 does not match pattern ^(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)$.")
+        self.assertEqual(str(error.exception),
+                         "For score stride, example 1234568 does not match pattern ^(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)$.")
+
 
 class TestSkippedScore(unittest.TestCase):
     def setUp(self):

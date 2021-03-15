@@ -1,5 +1,6 @@
 from lem.score import Score
 
+
 class ScoreManager(object):
     def __init__(self):
         self.scores = dict()
