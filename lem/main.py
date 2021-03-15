@@ -55,7 +55,7 @@ class Lem(object):
 
     def process_cve(self):
         self.configure_vulnerability_sources()
-        for name, source in self.vuln_manager.readers.iteritems():
+        for name, source in self.vuln_manager.readers.items():
             if self.args.names and name in self.args.names:
                 if self.args.update:
                     source.update_cves()
@@ -136,7 +136,7 @@ class Lem(object):
 
         elif 'score' in self.args.sub_which:
             self.configure_score_managers()
-            if not self.args.kind in self.score_manager.scores.keys():
+            if not self.args.kind in list(self.score_manager.scores.keys()):
                 FRTLogger.error("Score kind {0} is not valid.  Please check {1}".format(
                     self.args.kind, self.lem_conf.path))
                 sys.exit(1)

@@ -1,7 +1,7 @@
 import os
 import sys
 import shutil
-import ConfigParser
+import configparser
 
 
 class LemConfiguration(object):
@@ -25,11 +25,11 @@ class LemConfiguration(object):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         source_config = os.path.join(dir_path, 'config', 'lem.conf')
         if not os.path.isfile(self.file):
-            print "{0} doesn't exist".format(self.file)
+            print("{0} doesn't exist".format(self.file))
             shutil.copy(source_config, self.file)
         # End workaround for funky
 
     def read_config(self):
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.readfp(open(self.file))
         return config

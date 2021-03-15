@@ -13,7 +13,7 @@ class TestScoreManager(unittest.TestCase):
         self.assertEqual(len(self.manager.scores), 0)
         self.manager.add_score('stride', self.stride_pattern)
         self.assertEqual(len(self.manager.scores), 1)
-        self.assertIn('stride', self.manager.scores.keys())
+        self.assertIn('stride', list(self.manager.scores.keys()))
         # Add again, ensure it doesn't grow and the patter doesn't change
         self.manager.add_score('stride', r'\d\d\d\d\d\d\d')
         self.assertEqual(len(self.manager.scores), 1)
@@ -21,8 +21,8 @@ class TestScoreManager(unittest.TestCase):
         # Add new score
         self.manager.add_score('skipped', self.skipped_pattern)
         self.assertEqual(len(self.manager.scores), 2)
-        self.assertIn('stride', self.manager.scores.keys())
-        self.assertIn('skipped', self.manager.scores.keys())
+        self.assertIn('stride', list(self.manager.scores.keys()))
+        self.assertIn('skipped', list(self.manager.scores.keys()))
 
     def test_delete_no_key(self):
         with self.assertRaises(KeyError):

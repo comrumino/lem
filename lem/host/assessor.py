@@ -73,9 +73,9 @@ class RpmAssessor(Assessor):
 
     def assess(self):
         self._get_rpms()
-        for cve, definition in self.vuln_data.iteritems():
+        for cve, definition in self.vuln_data.items():
             for rpm in definition['affected_packages']:
-                if rpm.name() in self.installed_packages.keys():
+                if rpm.name() in list(self.installed_packages.keys()):
                     if self.installed_packages[rpm.name()].version_less_than(rpm):
                         self.cves.append(cve)
 

@@ -6,7 +6,7 @@ class ScoreManager(object):
         self.scores = dict()
 
     def add_score(self, name, pattern, example=None):
-        if name not in self.scores.keys():
+        if name not in list(self.scores.keys()):
             self.scores[name] = Score(name, pattern, example)
 
     def delete_score(self, name):
@@ -23,7 +23,7 @@ class ScoreManager(object):
 
     def __str__(self):
         score_strings = ['name,pattern,example']
-        for _, score in self.scores.iteritems():
+        for _, score in self.scores.items():
             score_strings.append(str(score))
         return '\n'.join(score_strings)
 
