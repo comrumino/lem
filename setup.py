@@ -1,5 +1,4 @@
-from distutils.core import setup
-from distutils.core import Command
+from setuptools import setup, Command
 import os
 import sys
 import unittest
